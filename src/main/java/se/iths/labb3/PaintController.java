@@ -26,6 +26,8 @@ public class PaintController {
     @FXML
     private CheckBox circle;
 
+    @FXML
+    private CheckBox delete;
 
     Model model;
 
@@ -73,16 +75,20 @@ public class PaintController {
 
     public void canvasClicked(MouseEvent event) {
         double size = Double.parseDouble(String.valueOf(sizeSpinner.getValue()));
-        if ( circle.isSelected())
-            model.shapes.add(Shapes.circleOf(event.getX(), event.getY(), size, model.getColor()));
-        else
-            model.shapes.add(Shapes.squareOf(event.getX(), event.getY(), size, model.getColor()));
+        if ( delete.isSelected()) { //Gör om denna så att den väljer den sista i listan istället
+            Object removeThis = model.shapes.stream()
+                    .filter(shape -> shape.isInside(event.getX(), event.getY()))
+                    .findFirst();
+            model.shapes.remove(removeThis);
+        }
+        else {
+            if (circle.isSelected()) {
+                model.shapes.add(Shapes.circleOf(event.getX(), event.getY(), size, model.getColor()));
+            } else {
+                model.shapes.add(Shapes.squareOf(event.getX(), event.getY(), size, model.getColor()));
+            }
+        }
 
-//        else if (event.getButton().name().equals("SECONDARY")) { //Gör om denna så att den väljer den sista i listan istället
-//            model.shapes.stream()
-//                    .filter(shape -> shape.isInside(event.getX(), event.getY()))
-//                    .findFirst().ifPresent(shape -> shape.setColor(Color.RED));
-//        }
         draw();
     }
 }

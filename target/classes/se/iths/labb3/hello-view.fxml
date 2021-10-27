@@ -22,6 +22,7 @@
                     <Spinner fx:id="sizeSpinner" min="8" amountToStepBy="4" max="80" prefWidth="70" editable="true"/>
                     <ColorPicker fx:id="colorPicker"/>
                     <CheckBox fx:id="circle" text="Toggle circle or square"/>
+                    <CheckBox fx:id="delete" text="Delete"/>
                 </HBox>
             </ToolBar>
         </VBox>
