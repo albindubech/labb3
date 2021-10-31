@@ -21,8 +21,10 @@
                 <HBox alignment="CENTER" spacing="5">
                     <Spinner fx:id="sizeSpinner" min="8" amountToStepBy="4" max="80" prefWidth="70" editable="true"/>
                     <ColorPicker fx:id="colorPicker"/>
-                    <CheckBox fx:id="circle" text="Toggle circle or square"/>
-                    <CheckBox fx:id="delete" text="Delete"/>
+                    <RadioButton fx:id="square" text="Square"/>
+                    <RadioButton fx:id="circle" text="Circle"/>
+                    <RadioButton fx:id="select" text="Select"/>
+                    <Button fx:id="undo" text="Undo" onMouseClicked="#undoButtonClicked"/>
                 </HBox>
             </ToolBar>
         </VBox>
