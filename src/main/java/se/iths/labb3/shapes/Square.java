@@ -21,15 +21,13 @@ public final class Square extends Shape {
 
     @Override
     public boolean isInside(double x, double y) {
+        double dx = x - getX();
+        double dy = y - getY();
 
-//        if (getX() >= rx &&         // right of the left edge AND
-//                px <= rx + rw &&    // left of the right edge AND
-//                py >= ry &&         // below the top AND
-//                py <= ry + rh) {    // above the bottom
-//            return true;
-//        }
-//        return false;
+//        double distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
+        double distanceFromCenter = dx * dx + dy * dy;
 
-        return true;
+//        return distanceFromCenter < radius;
+        return distanceFromCenter < size*size;
     }
 }

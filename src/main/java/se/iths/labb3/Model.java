@@ -1,5 +1,6 @@
 package se.iths.labb3;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class Model {
 
-    private final StringProperty text;
+    public final ObjectProperty<Integer> size;
     private final BooleanProperty inColor;
     private final ObjectProperty<Color> color;
 
@@ -22,9 +23,13 @@ public class Model {
     List<Shape> shapes = new ArrayList<>();
 
     public Model() {
-        this.text = new SimpleStringProperty("");
         this.inColor = new SimpleBooleanProperty();
         this.color = new SimpleObjectProperty<>(Color.BLACK);
+        this.size = new SimpleObjectProperty<>(1);
+    }
+
+    public Integer getSize() {
+        return size.get();
     }
 
     public Color getColor() {
@@ -49,17 +54,5 @@ public class Model {
 
     public void setInColor(boolean inColor) {
         this.inColor.set(inColor);
-    }
-
-    public String getText() {
-        return text.getValue();
-    }
-
-    public void setText(String text) {
-        this.text.setValue(text);
-    }
-
-    public StringProperty textProperty() {
-        return text;
     }
 }
