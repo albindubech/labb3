@@ -8,13 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import se.iths.labb3.shapes.Shape;
 import se.iths.labb3.shapes.Shapes;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 public class PaintController {
@@ -100,13 +100,18 @@ public class PaintController {
 
         if (circle.isSelected()) {
             model.shapes.add(Shapes.circleOf(event.getX(), event.getY(), model.getSize(), model.getColor()));
-        } else if (square.isSelected()){
+        } else if (square.isSelected()) {
             model.shapes.add(Shapes.squareOf(event.getX(), event.getY(), model.getSize(), model.getColor()));
         }
         draw();
     }
 
-    public void undoButtonClicked(){
-
+    public void undoButtonClicked() {
+        var last = model.shapes.size();
+        if (model.shapes.isEmpty())
+            return;
+        else
+            model.shapes.remove(last - 1);
+        draw();
     }
 }
