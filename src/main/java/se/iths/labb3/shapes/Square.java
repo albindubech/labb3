@@ -24,10 +24,8 @@ public final class Square extends Shape {
         double dx = x - getX();
         double dy = y - getY();
 
-//        double distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
         double distanceFromCenter = dx * dx + dy * dy;
 
-//        return distanceFromCenter < radius;
         return distanceFromCenter < size*size;
     }
 }

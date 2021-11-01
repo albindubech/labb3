@@ -1,6 +1,5 @@
 package se.iths.labb3;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,9 +15,6 @@ public class Model {
     public final ObjectProperty<Integer> size;
     private final BooleanProperty inColor;
     private final ObjectProperty<Color> color;
-
-    ObservableList<String> observableList =
-            FXCollections.observableArrayList();
 
     List<Shape> shapes = new ArrayList<>();
 

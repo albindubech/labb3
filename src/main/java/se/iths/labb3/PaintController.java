@@ -7,15 +7,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import se.iths.labb3.shapes.Shape;
 import se.iths.labb3.shapes.Shapes;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.util.*;
-import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
 
 public class PaintController {
 
@@ -54,18 +49,6 @@ public class PaintController {
 
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
         model.size.bindBidirectional(sizeSpinner.getValueFactory().valueProperty());
-//        canvas.setOnMouseClicked(e -> {
-//            double size = Double.parseDouble(brushSize.getText());
-//            double x = e.getX() - size / 2;
-//            double y = e.getY() - size / 2;
-//
-//            if (eraser.isSelected())
-//                graphics.clearRect(x, y, size, size);
-//            else {
-//                graphics.setFill(colorPicker.getValue());
-//                graphics.fillRect(x, y, size, size);
-//            }
-//        });
     }
 
     private void draw() {
@@ -90,8 +73,7 @@ public class PaintController {
     }
 
     public void canvasClicked(MouseEvent event) {
-//        double size = Double.parseDouble(String.valueOf(sizeSpinner.getValue()));
-        if (select.isSelected()) { //Gör om denna så att den väljer den sista i listan istället
+        if (select.isSelected()) {
             model.shapes.stream()
                     .filter(shape -> shape.isInside(event.getX(), event.getY()))
                     .reduce((first, second) -> second)
