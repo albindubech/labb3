@@ -7,9 +7,9 @@ public final class Square extends Shape {
 
     double size;
 
-    public Square(Color color, double x, double y, double size) {
-        super(color, x, y);
-        this.size = size;
+    public Square(Color color, double x, double y, double radius) {
+        super(color, x, y, radius);
+        this.size = radius;
     }
 
     @Override
@@ -26,6 +26,11 @@ public final class Square extends Shape {
 
         double distanceFromCenter = dx * dx + dy * dy;
 
-        return distanceFromCenter < size*size;
+        return distanceFromCenter < size * size;
+    }
+
+    @Override
+    public void setSize(double radius) {
+        this.size = radius;
     }
 }

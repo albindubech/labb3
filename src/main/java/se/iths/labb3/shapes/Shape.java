@@ -1,5 +1,6 @@
 package se.iths.labb3.shapes;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -7,11 +8,13 @@ public abstract sealed class Shape permits Circle, Square {
     private Color color;
     private double x;
     private double y;
+    private double radius;
 
-    public Shape(Color color, double x, double y) {
+    public Shape(Color color, double x, double y, double radius) {
         this.color = color;
         this.x = x;
         this.y = y;
+        this.radius = radius;
     }
 
     public abstract void draw(GraphicsContext graphicsContext);
@@ -44,4 +47,6 @@ public abstract sealed class Shape permits Circle, Square {
         this.y = y;
         return this;
     }
+
+    public abstract void setSize(double radius);
 }

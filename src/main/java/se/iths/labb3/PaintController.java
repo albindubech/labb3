@@ -78,6 +78,10 @@ public class PaintController {
                     .filter(shape -> shape.isInside(event.getX(), event.getY()))
                     .reduce((first, second) -> second)
                     .ifPresent(shape -> shape.setColor(model.getColor()));
+            model.shapes.stream()
+                    .filter(shape -> shape.isInside(event.getX(), event.getY()))
+                    .reduce((first, second) -> second)
+                    .ifPresent(shape -> shape.setSize(sizeSpinner.getValue()));
         }
 
         if (circle.isSelected()) {

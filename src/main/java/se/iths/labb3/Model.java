@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Model {
 
-    public final ObjectProperty<Integer> size;
+    public ObjectProperty<Integer> size;
     private final BooleanProperty inColor;
     private final ObjectProperty<Color> color;
 
@@ -22,6 +22,10 @@ public class Model {
         this.inColor = new SimpleBooleanProperty();
         this.color = new SimpleObjectProperty<>(Color.BLACK);
         this.size = new SimpleObjectProperty<>(1);
+    }
+
+    public void setSize(ObjectProperty<Integer> size){
+        this.size = size;
     }
 
     public Integer getSize() {

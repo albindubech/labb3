@@ -8,7 +8,7 @@ public final class Circle extends Shape {
     private double radius;
 
     public Circle(Color color, double x, double y, double radius) {
-        super(color, x, y);
+        super(color, x, y, radius);
         this.radius = radius;
     }
 
@@ -27,5 +27,10 @@ public final class Circle extends Shape {
         double distanceFromCenter = dx * dx + dy * dy;
 
         return distanceFromCenter < radius*radius;
+    }
+
+    @Override
+    public void setSize(double radius) {
+        this.radius = radius;
     }
 }
