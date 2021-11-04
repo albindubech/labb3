@@ -28,6 +28,11 @@
             </ToolBar>
         </VBox>
     </top>
+
+    <left>
+        <ListView fx:id="listView" prefWidth="155" onMouseClicked="#listViewClicked"/>
+    </left>
+
     <center>
         <StackPane prefWidth="600" prefHeight="600">
             <ResizableCanvas fx:id="canvas" onMouseClicked="#canvasClicked"/>

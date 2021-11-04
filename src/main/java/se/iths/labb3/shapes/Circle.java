@@ -33,4 +33,13 @@ public final class Circle extends Shape {
     public void setSize(double radius) {
         this.radius = radius;
     }
+
+    @Override
+    public String drawSVG() {
+        String convertColor = "#" + getColor().toString().substring(2, 10);
+        return "<circle cx=\"" + getX() + "\" " +
+                "cy=\"" + getY() + "\" " +
+                "r=\"" + radius + "\" " +
+                "fill=\"" + convertColor + "\" />";
+    }
 }

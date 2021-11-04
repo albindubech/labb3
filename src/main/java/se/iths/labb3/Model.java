@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import se.iths.labb3.shapes.Shape;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 
@@ -17,6 +18,8 @@ public class Model {
     private final ObjectProperty<Color> color;
 
     List<Shape> shapes = new ArrayList<>();
+    public Deque<ObservableList<Shape>> undoDeque;
+    public Deque<ObservableList<Shape>> redoDeque;
 
     public Model() {
         this.inColor = new SimpleBooleanProperty();

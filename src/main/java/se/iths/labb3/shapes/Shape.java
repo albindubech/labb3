@@ -49,4 +49,6 @@ public abstract sealed class Shape permits Circle, Square {
     }
 
     public abstract void setSize(double radius);
+
+    public abstract String drawSVG();
 }

@@ -15,7 +15,10 @@ import java.io.File;
 public class PaintController {
 
     @FXML
-    public Spinner<Integer> sizeSpinner;
+    private ListView listView;
+
+    @FXML
+    private Spinner<Integer> sizeSpinner;
 
     @FXML
     private Canvas canvas;
@@ -60,12 +63,14 @@ public class PaintController {
     }
 
     public void onSave() {
-        try {
-            Image snapshot = canvas.snapshot(null, null);
-            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("paint.png"));
-        } catch (Exception e) {
-            System.out.println("Failed to save image: " + e);
-        }
+        SvgConverter svgConverter = new SvgConverter();
+        svgConverter.saveSVGFile(model);
+//        try {
+//            Image snapshot = canvas.snapshot(null, null);
+//            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("paint.png"));
+//        } catch (Exception e) {
+//            System.out.println("Failed to save image: " + e);
+//        }
     }
 
     public void onExit() {
@@ -100,4 +105,6 @@ public class PaintController {
             model.shapes.remove(last - 1);
         draw();
     }
+
+
 }

@@ -33,4 +33,14 @@ public final class Square extends Shape {
     public void setSize(double radius) {
         this.size = radius;
     }
+
+    @Override
+    public String drawSVG() {
+        String convertColor = "#" + getColor().toString().substring(2, 10);
+        return "<rect x=\"" + getX() + "\" " +
+                "y=\"" + getY() + "\" " +
+                "width=\"" + size + "\" " +
+                "height=\"" + size + "\" " +
+                "fill=\"" + convertColor + "\" />";
+    }
 }
