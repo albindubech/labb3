@@ -28,14 +28,14 @@ class ModelTest {
         assertThat(model.shapes.size()).isEqualTo(1);
     }
 
-    @Test
-    void getSizeShouldReturnSize() {
-        assertThat(model.getSize()).isEqualTo(model.size);
-    }
+//    @Test
+//    void getSizeShouldReturnSize() {
+//        assertThat(model.getSize()).isEqualTo(model.size);
+//    }
 
-    @Test
-    void getColorShouldReturnColor() {
-
-    }
+//    @Test
+//    void getColorShouldReturnColor() {
+//
+//    }
 
 }

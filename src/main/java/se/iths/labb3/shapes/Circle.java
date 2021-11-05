@@ -12,11 +12,16 @@ public final class Circle extends Shape {
         this.radius = radius;
     }
 
+    public Circle(Circle shape) {
+        super(shape);
+        this.radius = shape.radius;
+    }
+
     @Override
     public void draw(GraphicsContext graphicsContext) {
-        double twoTimesRadius = 2*radius;
+        double twoTimesRadius = 2* radius;
         graphicsContext.setFill(this.getColor());
-        graphicsContext.fillOval(getX()-radius,getY()-radius,twoTimesRadius,twoTimesRadius);
+        graphicsContext.fillOval(getX()- radius,getY()- radius,twoTimesRadius,twoTimesRadius);
     }
 
     @Override
@@ -26,7 +31,7 @@ public final class Circle extends Shape {
 
         double distanceFromCenter = dx * dx + dy * dy;
 
-        return distanceFromCenter < radius*radius;
+        return distanceFromCenter < radius * radius;
     }
 
     @Override
@@ -41,5 +46,10 @@ public final class Circle extends Shape {
                 "cy=\"" + getY() + "\" " +
                 "r=\"" + radius + "\" " +
                 "fill=\"" + convertColor + "\" />";
+    }
+
+    @Override
+    public Shape copyOf() {
+        return new Circle(this);
     }
 }

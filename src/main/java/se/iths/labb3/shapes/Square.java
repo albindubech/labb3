@@ -5,11 +5,17 @@ import javafx.scene.paint.Color;
 
 public final class Square extends Shape {
 
-    double size;
+    private double size;
 
-    public Square(Color color, double x, double y, double radius) {
-        super(color, x, y, radius);
-        this.size = radius;
+    public Square(Color color, double x, double y, double size) {
+        super(color, x, y, size);
+        this.size = size;
+    }
+
+    public Square(Square shape) {
+        super(shape);
+        this.size = shape.size;
+
     }
 
     @Override
@@ -30,8 +36,8 @@ public final class Square extends Shape {
     }
 
     @Override
-    public void setSize(double radius) {
-        this.size = radius;
+    public void setSize(double size) {
+        this.size = size;
     }
 
     @Override
@@ -42,5 +48,10 @@ public final class Square extends Shape {
                 "width=\"" + size + "\" " +
                 "height=\"" + size + "\" " +
                 "fill=\"" + convertColor + "\" />";
+    }
+
+    @Override
+    public Shape copyOf() {
+        return new Square(this);
     }
 }

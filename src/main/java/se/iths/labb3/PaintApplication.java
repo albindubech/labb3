@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class PaintApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")))));

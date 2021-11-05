@@ -18,20 +18,17 @@
 
             <ToolBar>
                 <HBox alignment="CENTER" spacing="5">
-                    <Spinner fx:id="sizeSpinner" min="8" amountToStepBy="4" max="80" prefWidth="70" editable="true"/>
-                    <ColorPicker fx:id="colorPicker"/>
                     <RadioButton fx:id="square" text="Square"/>
                     <RadioButton fx:id="circle" text="Circle"/>
                     <RadioButton fx:id="select" text="Select"/>
-                    <Button fx:id="undo" text="Undo" onMouseClicked="#undoButtonClicked"/>
+                    <Spinner fx:id="sizeSpinner" min="8" amountToStepBy="4" max="80" prefWidth="70" editable="true"/>
+                    <ColorPicker fx:id="colorPicker"/>
+                    <Button text="Undo" onMouseClicked="#undoButtonClicked"/>
+                    <Button text="Redo" onMouseClicked="#redoButtonClicked"/>
                 </HBox>
             </ToolBar>
         </VBox>
     </top>
-
-    <left>
-        <ListView fx:id="listView" prefWidth="155" onMouseClicked="#listViewClicked"/>
-    </left>
 
     <center>
         <StackPane prefWidth="600" prefHeight="600">

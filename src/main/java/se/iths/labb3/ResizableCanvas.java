@@ -34,6 +34,4 @@ public class ResizableCanvas extends Canvas {
         this.setWidth(width);
         this.setHeight(height);
     }
-
-
 }

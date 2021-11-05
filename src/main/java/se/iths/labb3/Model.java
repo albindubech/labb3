@@ -6,29 +6,26 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import se.iths.labb3.shapes.Shape;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.List;
 
 
 public class Model {
 
-    public ObjectProperty<Integer> size;
-    private final BooleanProperty inColor;
     private final ObjectProperty<Color> color;
+    ObjectProperty<Integer> size;
 
-    List<Shape> shapes = new ArrayList<>();
-    public Deque<ObservableList<Shape>> undoDeque;
-    public Deque<ObservableList<Shape>> redoDeque;
+    ObservableList<Shape> shapes;
+    Deque<ObservableList<Shape>> undoDeque;
+    Deque<ObservableList<Shape>> redoDeque;
 
     public Model() {
-        this.inColor = new SimpleBooleanProperty();
-        this.color = new SimpleObjectProperty<>(Color.BLACK);
-        this.size = new SimpleObjectProperty<>(1);
-    }
+        this.shapes = FXCollections.observableArrayList();
+        this.undoDeque = new ArrayDeque<>();
+        this.redoDeque = new ArrayDeque<>();
 
-    public void setSize(ObjectProperty<Integer> size){
-        this.size = size;
+        this.color = new SimpleObjectProperty<>(Color.BLACK);
+        this.size = new SimpleObjectProperty<>(18);
     }
 
     public Integer getSize() {
@@ -43,19 +40,28 @@ public class Model {
         return color;
     }
 
-    public void setColor(Color color) {
-        this.color.set(color);
+    public ObservableList<Shape> getTempList() {
+        ObservableList<Shape> tempList = FXCollections.observableArrayList();
+
+        for (Shape shape : shapes) {
+            tempList.add(shape.copyOf());
+        }
+        return tempList;
     }
 
-    public boolean isInColor() {
-        return inColor.get();
+    public void redo() {
+        if (redoDeque.isEmpty())
+            return;
+        ObservableList<Shape> temp = getTempList();
+        undoDeque.addLast(temp);
+        shapes = redoDeque.removeLast();
     }
 
-    public BooleanProperty inColorProperty() {
-        return inColor;
-    }
-
-    public void setInColor(boolean inColor) {
-        this.inColor.set(inColor);
+    public void undo() {
+        if (undoDeque.isEmpty())
+            return;
+        ObservableList<Shape> temp = getTempList();
+        redoDeque.addLast(temp);
+        shapes = undoDeque.removeLast();
     }
 }

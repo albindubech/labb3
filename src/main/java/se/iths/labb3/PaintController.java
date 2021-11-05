@@ -1,21 +1,15 @@
 package se.iths.labb3;
 
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.image.Image;
+import se.iths.labb3.shapes.Shape;
 import se.iths.labb3.shapes.Shapes;
 
-import javax.imageio.ImageIO;
-import java.io.File;
-
 public class PaintController {
-
-    @FXML
-    private ListView listView;
 
     @FXML
     private Spinner<Integer> sizeSpinner;
@@ -35,10 +29,7 @@ public class PaintController {
     @FXML
     private RadioButton select;
 
-    @FXML
-    private Button undo;
-
-    Model model;
+    private Model model;
 
     public void initialize() {
         model = new Model();
@@ -65,12 +56,6 @@ public class PaintController {
     public void onSave() {
         SvgConverter svgConverter = new SvgConverter();
         svgConverter.saveSVGFile(model);
-//        try {
-//            Image snapshot = canvas.snapshot(null, null);
-//            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("paint.png"));
-//        } catch (Exception e) {
-//            System.out.println("Failed to save image: " + e);
-//        }
     }
 
     public void onExit() {
@@ -78,33 +63,52 @@ public class PaintController {
     }
 
     public void canvasClicked(MouseEvent event) {
-        if (select.isSelected()) {
-            model.shapes.stream()
-                    .filter(shape -> shape.isInside(event.getX(), event.getY()))
-                    .reduce((first, second) -> second)
-                    .ifPresent(shape -> shape.setColor(model.getColor()));
-            model.shapes.stream()
-                    .filter(shape -> shape.isInside(event.getX(), event.getY()))
-                    .reduce((first, second) -> second)
-                    .ifPresent(shape -> shape.setSize(sizeSpinner.getValue()));
-        }
+        if (select.isSelected())
+            changeColorOrSize(event);
+        else
+            addShapeOfSquareOrCircle(event);
+        draw();
+    }
 
+    private void addShapeOfSquareOrCircle(MouseEvent event) {
+        ObservableList<Shape> temp = model.getTempList();
         if (circle.isSelected()) {
+            model.undoDeque.addLast(temp);
             model.shapes.add(Shapes.circleOf(event.getX(), event.getY(), model.getSize(), model.getColor()));
         } else if (square.isSelected()) {
+            model.undoDeque.addLast(temp);
             model.shapes.add(Shapes.squareOf(event.getX(), event.getY(), model.getSize(), model.getColor()));
         }
-        draw();
+    }
+
+    private void changeColorOrSize(MouseEvent event) {
+        ObservableList<Shape> temp = model.getTempList();
+        model.undoDeque.addLast(temp);
+        changeColor(event);
+        changeSize(event);
+    }
+
+    private void changeSize(MouseEvent event) {
+        model.shapes.stream()
+                .filter(shape -> shape.isInside(event.getX(), event.getY()))
+                .reduce((first, second) -> second)
+                .ifPresent(shape -> shape.setSize(sizeSpinner.getValue()));
+    }
+
+    private void changeColor(MouseEvent event) {
+        model.shapes.stream()
+                .filter(shape -> shape.isInside(event.getX(), event.getY()))
+                .reduce((first, second) -> second)
+                .ifPresent(shape -> shape.setColor(model.getColor()));
     }
 
     public void undoButtonClicked() {
-        var last = model.shapes.size();
-        if (model.shapes.isEmpty())
-            return;
-        else
-            model.shapes.remove(last - 1);
+        model.undo();
         draw();
     }
 
-
+    public void redoButtonClicked() {
+        model.redo();
+        draw();
+    }
 }
